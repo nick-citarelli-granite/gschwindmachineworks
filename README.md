@@ -15,7 +15,7 @@ python -m http.server 4173 --directory src
 
 Then open [http://localhost:4173](http://localhost:4173). Point a static host's publish directory at `src/`.
 
-The team-photo area directly below the header is a placeholder. When a real photograph is available, replace the contents of `.team-photo` in `src/index.html` with an `<img>` and update the image's alternative text. The site needs no build system or image service.
+The team-photo area after the opening machining section is a placeholder. When a real photograph is available, replace the contents of `.team-photo` in `src/index.html` with an `<img>` and update the image's alternative text. The site needs no build system or image service.
 
 Background research and content sources are documented in [docs/research.md](docs/research.md).
 
