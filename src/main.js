@@ -35,6 +35,10 @@ document.getElementById("year").textContent = new Date().getFullYear();
 const tabs = [...document.querySelectorAll(".capability-tab")];
 
 function selectTab(selectedTab) {
+  document.querySelectorAll(".process-visual").forEach((visual) => {
+    visual.classList.remove("is-interacting");
+  });
+
   tabs.forEach((tab) => {
     const selected = tab === selectedTab;
     tab.setAttribute("aria-selected", String(selected));
@@ -57,6 +61,23 @@ tabs.forEach((tab, index) => {
     selectTab(tabs[nextIndex]);
     tabs[nextIndex].focus();
   });
+});
+
+// Pointer movement can guide each schematic; its CSS animation is the fallback.
+document.querySelectorAll(".process-visual").forEach((visual) => {
+  visual.addEventListener("pointermove", (event) => {
+    if (event.pointerType === "touch") return;
+
+    const bounds = visual.getBoundingClientRect();
+    const x = event.clientX - bounds.left;
+    const y = event.clientY - bounds.top;
+    visual.style.setProperty("--pointer-x", `${(x / bounds.width) * 100}%`);
+    visual.style.setProperty("--pointer-y", `${(y / bounds.height) * 100}%`);
+    visual.style.setProperty("--pointer-angle", `${Math.atan2(y - bounds.height / 2, x - bounds.width / 2)}rad`);
+    visual.classList.add("is-interacting");
+  });
+
+  visual.addEventListener("pointerleave", () => visual.classList.remove("is-interacting"));
 });
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
