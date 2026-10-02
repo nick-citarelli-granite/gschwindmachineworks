@@ -325,6 +325,10 @@ nav a:hover { text-decoration: underline; text-underline-offset: 5px; }
 .about { color: #fff; background: var(--maroon-dark); }
 .about-grid { display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 9%; }
 .history-panel { position: relative; padding: 38px; border: 1px solid #a6b4b6; box-shadow: 8px 8px 0 #180d11; }
+.history-panel:hover, .history-panel:focus-visible {
+  rotate: -.5deg;
+  box-shadow: 14px 18px 0 #180d11;
+}
 .history-panel::before { position: absolute; inset: 0 0 auto; height: 4px; box-shadow: 0 1px #f7fbfb99; }
 .history-point { display: flex; align-items: baseline; justify-content: space-between; gap: 25px; }
 .history-point strong {
@@ -367,6 +371,10 @@ nav a:hover { text-decoration: underline; text-underline-offset: 5px; }
 .contact p { max-width: 450px; color: #445357; font-size: 16px; line-height: 1.7; }
 .contact .button { margin-top: 16px; }
 .contact-panel { position: relative; padding: 28px 36px 8px; color: #fff; background: var(--maroon-dark); border: 1px solid #9caeb0; box-shadow: 9px 9px 0 #a8b8ba; }
+.contact-panel:hover, .contact-panel:focus-within {
+  rotate: .5deg;
+  box-shadow: 14px 18px 0 #a8b8ba;
+}
 .contact-panel::before { position: absolute; inset: 0 0 auto; height: 4px; box-shadow: 0 1px #fff7; }
 .contact-panel .eyebrow { margin-bottom: 15px; color: #d4e0e1; }
 .detail { display: grid; grid-template-columns: 88px 1fr; gap: 18px; padding: 23px 0; border-top: 1px solid #869b9f; }
@@ -376,6 +384,17 @@ nav a:hover { text-decoration: underline; text-underline-offset: 5px; }
 
 footer { padding: 25px 0; color: #cbd6d6; background: #1a2224; font-size: 11px; }
 .footer-inner { display: flex; justify-content: space-between; gap: 15px; }
+
+/* The two raised panels drift gently and respond to hover or keyboard focus. */
+.floating-card {
+  animation: card-float 6s ease-in-out infinite;
+  transition: scale .25s ease, rotate .25s ease, box-shadow .25s ease;
+}
+.contact-panel.floating-card { animation-delay: -3s; }
+.floating-card:hover, .floating-card:focus-visible, .floating-card:focus-within {
+  scale: 1.025;
+  animation-play-state: paused;
+}
 
 /* Narrow, repeated texture rails provide shine without stretching the image. */
 .site-header::after,
@@ -395,6 +414,11 @@ footer { padding: 25px 0; color: #cbd6d6; background: #1a2224; font-size: 11px; 
   100% { transform: translateX(850%); }
 }
 
+@keyframes card-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -7px; }
+}
+
 /* Motion only decorates content; reduced-motion visitors see the same information. */
 .js-motion [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
 .js-motion [data-reveal].is-visible { opacity: 1; transform: none; }
@@ -402,6 +426,8 @@ footer { padding: 25px 0; color: #cbd6d6; background: #1a2224; font-size: 11px; 
   :root { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .js-motion [data-reveal] { opacity: 1; transform: none; }
+  .floating-card { translate: 0 0; }
+  .floating-card:hover, .floating-card:focus-visible, .floating-card:focus-within { scale: 1; rotate: 0deg; }
 }
 
 @media (max-width: 950px) {

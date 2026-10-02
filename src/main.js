@@ -62,7 +62,7 @@ tabs.forEach((tab, index) => {
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 if ("IntersectionObserver" in window && !reduceMotion) {
   const revealTargets = document.querySelectorAll(
-    ".team-copy, .team-photo, .section-head, .capability-tabs, .history-panel, .about-copy, .industry-list, .contact-copy, .contact-panel"
+    ".team-copy, .team-photo, .section-head, .capability-tabs, .about-copy, .industry-list, .contact-copy"
   );
   revealTargets.forEach((element) => element.setAttribute("data-reveal", ""));
 
