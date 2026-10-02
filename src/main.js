@@ -31,10 +31,38 @@ updateHeader();
 
 document.getElementById("year").textContent = new Date().getFullYear();
 
+// A small, accessible tab set keeps the published shop capabilities in one place.
+const tabs = [...document.querySelectorAll(".capability-tab")];
+
+function selectTab(selectedTab) {
+  tabs.forEach((tab) => {
+    const selected = tab === selectedTab;
+    tab.setAttribute("aria-selected", String(selected));
+    tab.tabIndex = selected ? 0 : -1;
+    document.getElementById(tab.getAttribute("aria-controls")).hidden = !selected;
+  });
+}
+
+tabs.forEach((tab, index) => {
+  tab.addEventListener("click", () => selectTab(tab));
+  tab.addEventListener("keydown", (event) => {
+    let nextIndex;
+    if (event.key === "ArrowRight") nextIndex = (index + 1) % tabs.length;
+    if (event.key === "ArrowLeft") nextIndex = (index - 1 + tabs.length) % tabs.length;
+    if (event.key === "Home") nextIndex = 0;
+    if (event.key === "End") nextIndex = tabs.length - 1;
+    if (nextIndex === undefined) return;
+
+    event.preventDefault();
+    selectTab(tabs[nextIndex]);
+    tabs[nextIndex].focus();
+  });
+});
+
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 if ("IntersectionObserver" in window && !reduceMotion) {
   const revealTargets = document.querySelectorAll(
-    ".section-head, .card, .about-image, .about-grid > div:last-child, .industry-list, .contact-grid > div"
+    ".team-copy, .team-photo, .section-head, .capability-tabs, .history-panel, .about-copy, .industry-list, .contact-copy, .contact-panel"
   );
   revealTargets.forEach((element) => element.setAttribute("data-reveal", ""));
 
