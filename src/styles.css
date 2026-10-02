@@ -45,6 +45,7 @@ header {
   box-shadow: 0 3px 0 #141b1d;
   transition: box-shadow .25s ease;
 }
+header::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: url("assets/brushed-steel.jpg") center 42% / cover; box-shadow: 0 1px #eff7f777; }
 header.is-scrolled { box-shadow: 0 8px 22px #11171855, 0 3px 0 #141b1d; }
 .header { min-height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .brand {
@@ -65,6 +66,7 @@ header.is-scrolled { box-shadow: 0 8px 22px #11171855, 0 3px 0 #141b1d; }
   width: 38px;
   height: 38px;
   border: 2px solid #dbe2e2;
+  background: #bfc9ca url("assets/brushed-steel.jpg") 35% 34% / 240px auto;
   box-shadow: inset 1px 1px #fff9, 1px 1px #12191a;
 }
 .mark::before, .mark::after { content: ""; position: absolute; background: #dbe2e2; }
@@ -75,7 +77,8 @@ nav a { font-size: 11px; font-weight: 900; letter-spacing: .14em; text-decoratio
 nav a:hover, nav a:focus-visible { color: #d9e1e1; text-decoration: underline; text-underline-offset: 5px; }
 .nav-contact {
   padding: 13px 18px;
-  background: #6e2736;
+  color: #3e1721;
+  background: #c6d0d1 url("assets/brushed-steel.jpg") 39% 35% / 510px auto;
   border: 1px solid #bec9ca;
   box-shadow: inset 0 1px #ffffff50;
   clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 9px 100%, 0 calc(100% - 9px));
@@ -95,7 +98,7 @@ nav a:hover, nav a:focus-visible { color: #d9e1e1; text-decoration: underline; t
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, #32151df5 0%, #32151ddc 30%, #18202388 65%, #18202338 100%), url("assets/machined-part.png") center / cover;
+  background: linear-gradient(90deg, #32151df5 0%, #32151ddc 30%, #18202388 65%, #18202338 100%), url("assets/machined-part.jpg") center / cover;
   animation: heroSettle 1.5s cubic-bezier(.2,.7,.2,1) both;
 }
 .hero::after {
@@ -109,7 +112,7 @@ nav a:hover, nav a:focus-visible { color: #d9e1e1; text-decoration: underline; t
 .hero-content { position: relative; z-index: 1; padding: 88px 0 110px; }
 .hero .eyebrow { color: #e3e9e9; animation: riseIn .65s .05s both; }
 h1 { max-width: 900px; margin: 26px 0; font-size: clamp(55px, 7.2vw, 104px); line-height: .96; text-shadow: 0 3px 12px #0d101299; animation: riseIn .8s .13s both; }
-h1 em { color: #d4dfe1; font-style: normal; text-shadow: 0 1px #fff7, 0 4px 10px #0c1314; }
+h1 em { color: #d4dfe1; font-style: normal; background: #aab6b8 url("assets/brushed-steel.jpg") 46% 42% / 130% auto; background-blend-mode: screen; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; -webkit-text-stroke: .5px #edf3f3; filter: brightness(1.65) drop-shadow(0 4px 4px #0c1314b0); }
 .hero p { max-width: 515px; padding-left: 18px; border-left: 3px solid #cbd5d6; color: #e5e9e8; font-size: 17px; line-height: 1.65; animation: riseIn .8s .24s both; }
 .button {
   position: relative;
@@ -121,7 +124,7 @@ h1 em { color: #d4dfe1; font-style: normal; text-shadow: 0 1px #fff7, 0 4px 10px
   padding: 0 23px;
   overflow: hidden;
   color: #461a25;
-  background: #c8d1d2;
+  background: #c8d1d2 url("assets/brushed-steel.jpg") 38% 38% / 620px auto;
   border: 1px solid #f1f5f5;
   border-right-color: #849296;
   border-bottom-color: #6b797c;
@@ -149,7 +152,7 @@ h1 em { color: #d4dfe1; font-style: normal; text-shadow: 0 1px #fff7, 0 4px 10px
 .hero .button { animation: riseIn .8s .36s both; }
 .hero-foot { position: absolute; z-index: 2; bottom: 25px; left: 0; width: 100%; display: flex; justify-content: space-between; color: #d5dcdc; font-size: 10px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
 
-.stats { color: #273033; background: #cbd3d4; border-top: 3px solid var(--maroon); border-bottom: 2px solid #899699; }
+.stats { color: #273033; background: #cbd3d4 url("assets/brushed-steel.jpg") center 38% / cover; border-top: 3px solid var(--maroon); border-bottom: 2px solid #899699; }
 .stats::before { content: ""; display: block; height: 1px; background: #f9ffff; }
 .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
 .stat { display: flex; align-items: center; gap: 15px; min-height: 100px; padding: 20px 25px; border-right: 1px solid #a8b3b5; box-shadow: inset 1px 0 #eaf0f0; }
@@ -186,7 +189,7 @@ h1 em { color: #d4dfe1; font-style: normal; text-shadow: 0 1px #fff7, 0 4px 10px
 .about { color: #f2f5f4; background: var(--maroon-dark); border-top: 5px solid #879598; }
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 10%; }
 .about-image { position: relative; display: flex; align-items: end; min-height: 490px; overflow: hidden; background: #283133; border: 1px solid #c6d0d1; box-shadow: 9px 9px 0 #1c1014; }
-.about-image::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, #18201e00, #18201ee8), url("assets/machined-part.png") center / cover; filter: grayscale(1) contrast(1.12); }
+.about-image::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, #18201e00, #18201ee8), url("assets/machined-part.jpg") center / cover; filter: grayscale(1) contrast(1.12); }
 .image-caption { position: relative; max-width: 340px; padding: 34px; font-size: 29px; font-weight: 900; line-height: 1.15; text-transform: uppercase; }
 .image-caption small { display: block; margin-bottom: 12px; color: #d4dede; font-size: 10px; letter-spacing: .18em; }
 .about .eyebrow { color: #d7e0e0; }
@@ -194,7 +197,7 @@ h1 em { color: #d4dfe1; font-style: normal; text-shadow: 0 1px #fff7, 0 4px 10px
 .about p { color: #d6dddc; font-size: 15px; line-height: 1.8; }
 .about-rule { margin-top: 28px; padding-top: 22px; border-top: 1px solid #c3cece77; color: #edf3f2; font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
 
-.industries { background: #c9d2d3; border-top: 1px solid #f1f5f5; border-bottom: 4px solid var(--maroon); }
+.industries { background: #c9d2d3 url("assets/brushed-steel.jpg") center 40% / cover; border-top: 1px solid #f1f5f5; border-bottom: 4px solid var(--maroon); }
 .industries .wrap { display: flex; align-items: center; justify-content: space-between; gap: 40px; padding-block: 34px; }
 .industries .eyebrow { color: var(--maroon); white-space: nowrap; }
 .industry-list { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 14px 30px; font-size: 11px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
@@ -238,7 +241,7 @@ footer { color: #cbd4d3; background: #171e20; border-top: 1px solid #879496; pad
   nav a { padding: 13px 5px; }
   .nav-contact { margin-top: 8px; text-align: center; }
   .hero { min-height: 620px; }
-  .hero::before { background: linear-gradient(90deg, #35151ef2, #20272ac0), url("assets/machined-part.png") 60% center / cover; }
+  .hero::before { background: linear-gradient(90deg, #35151ef2, #20272ac0), url("assets/machined-part.jpg") 60% center / cover; }
   .hero-content { padding: 94px 0 104px; }
   h1 { font-size: clamp(50px, 12vw, 76px); }
   .hero p { font-size: 15px; }
