@@ -3,6 +3,8 @@
   --maroon-dark: #39161f;
   --graphite: #20292b;
   --metal-texture: url("assets/brushed-steel.jpg");
+  --polished-steel: linear-gradient(112deg, #b2bec1, #e7eded 27%, #f9fbfb 33%, #c4ced0 55%, #edf2f2 73%, #a9b7bb);
+  --engraved-edge: -1px -1px 0 #425055aa, 1px 1px 0 #f8fbfb, 2px 2px 2px #f8fbfbaa;
   --paper: #f0f3f2;
   --ink: #202a2c;
   --muted: #526064;
@@ -86,7 +88,7 @@ nav a:hover { text-decoration: underline; text-underline-offset: 5px; }
 .nav-contact {
   padding: 12px 17px;
   color: var(--maroon-dark);
-  background: #e1e7e7;
+  background: var(--polished-steel);
   border: 1px solid #fff;
   box-shadow: inset 0 -2px #a5b2b4;
 }
@@ -235,27 +237,26 @@ nav a:hover { text-decoration: underline; text-underline-offset: 5px; }
 }
 .button:hover { transform: translate(-2px, -2px); box-shadow: inset 0 2px #ffffffaa, inset 0 -2px #75838677, 6px 6px 0 #1e1116; }
 .button:hover::before, .button:focus-visible::before { left: 135%; }
-.button-steel { color: #3d1822; background: #dae2e2; border-color: #f8fbfb #93a1a3 #718083 #f8fbfb; }
+.button-steel { color: #3d1822; background: var(--polished-steel); border-color: #f8fbfb #93a1a3 #718083 #f8fbfb; }
 .button-maroon { color: #fff; background: var(--maroon); border-color: #9d6975 #451b26 #39161f #9d6975; }
 
-/* Company facts */
-/* A polished base with only a trace of grain keeps the numbers clear. */
-.stats {
+/* Shared polished bands use a faint, repeating grain that never stretches. */
+.steel-band {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(112deg, #b2bec1, #e7eded 27%, #f9fbfb 33%, #c4ced0 55%, #edf2f2 73%, #a9b7bb);
+  background: var(--polished-steel);
   border-top: 3px solid #e8eeee;
   border-bottom: 2px solid #68787b;
 }
-.stats::before {
+.steel-band::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--metal-texture) center / cover no-repeat;
+  background: var(--metal-texture) center / auto 140px repeat;
   opacity: .09;
   pointer-events: none;
 }
-.stats::after {
+.steel-band::after {
   content: "";
   position: absolute;
   z-index: 2;
@@ -268,6 +269,7 @@ nav a:hover { text-decoration: underline; text-underline-offset: 5px; }
   animation: steel-sweep 9s ease-in-out infinite;
   pointer-events: none;
 }
+/* Company facts */
 .stats-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(3, 1fr); }
 .stat { display: flex; align-items: center; gap: 15px; min-height: 94px; padding: 18px 26px; border-right: 1px solid #e8eeeeaa; box-shadow: inset 1px 0 #28353866; }
 .stat:first-child { padding-left: 0; box-shadow: none; }
@@ -277,7 +279,7 @@ nav a:hover { text-decoration: underline; text-underline-offset: 5px; }
   font-size: 31px;
   font-weight: 900;
   letter-spacing: -.06em;
-  text-shadow: -1px -1px 0 #425055aa, 1px 1px 0 #f8fbfb, 2px 2px 2px #f8fbfbaa;
+  text-shadow: var(--engraved-edge);
 }
 .stat span {
   color: #334348;
@@ -372,7 +374,7 @@ nav a:hover { text-decoration: underline; text-underline-offset: 5px; }
 .inspection-visual .visual-center::after { left: 50%; width: 1px; height: 100%; }
 .inspection-visual .visual-marker { top: 27%; left: 25%; width: 2px; height: 48%; animation: scan-across 4s ease-in-out infinite alternate; }
 .inspection-visual.is-interacting .visual-marker { left: clamp(25%, var(--pointer-x), 75%); animation: none; }
-.panel-specs { position: relative; display: grid; grid-template-columns: 1fr 1fr; background: #d9e2e2; border-top: 1px solid #adbbbd; }
+.panel-specs { position: relative; display: grid; grid-template-columns: 1fr 1fr; background: var(--polished-steel); border-top: 1px solid #adbbbd; }
 .panel-specs::before {
   content: "";
   position: absolute;
@@ -383,7 +385,7 @@ nav a:hover { text-decoration: underline; text-underline-offset: 5px; }
 }
 .panel-specs > div { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: 22px 18px 17px; border-right: 1px solid #adbbbd; }
 .panel-specs > div:last-child { border-right: 0; }
-.panel-specs strong { color: var(--maroon); font-size: clamp(21px, 2.2vw, 29px); font-weight: 900; letter-spacing: -.04em; text-transform: uppercase; overflow-wrap: anywhere; }
+.panel-specs strong { color: #683847; font-size: clamp(21px, 2.2vw, 29px); font-weight: 900; letter-spacing: -.04em; text-shadow: var(--engraved-edge); text-transform: uppercase; overflow-wrap: anywhere; }
 .panel-specs span { margin-top: 5px; color: #4d5b5e; font-size: 10px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
 .source-note { margin: 18px 0 0; color: #657174; font-size: 12px; line-height: 1.5; }
 
@@ -424,11 +426,11 @@ nav a:hover { text-decoration: underline; text-underline-offset: 5px; }
 .about-rule { margin-top: 28px; padding-top: 22px; border-top: 1px solid #c3cece77; color: #ecf2f2; font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
 
 /* Industries and contact */
-.industries { background: #dce4e4; border-top: 1px solid #f6fafa; border-bottom: 4px solid var(--maroon); }
-.industries-inner { display: flex; align-items: center; justify-content: space-between; gap: 35px; padding-block: 32px; }
+.industries { border-bottom: 4px solid var(--maroon); }
+.industries-inner { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 35px; padding-block: 32px; }
 .industries .eyebrow { color: var(--maroon); white-space: nowrap; }
 .industry-list { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 14px 25px; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-.industry-list span { padding-left: 13px; border-left: 2px solid var(--maroon); }
+.industry-list span { padding-left: 13px; border-left: 2px solid var(--maroon); color: #334348; text-shadow: -1px -1px 0 #66777b77, 1px 1px 0 #f8fbfb; }
 
 .contact { color: var(--ink); background: #e2e9e9; }
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 10%; }
