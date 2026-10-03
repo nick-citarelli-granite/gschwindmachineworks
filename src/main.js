@@ -82,34 +82,69 @@ document.querySelectorAll(".process-visual").forEach((visual) => {
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// The steel sweep swaps between the published industries as it crosses the band.
-// The original list stays in the page for assistive technology and reduced motion.
-const industryBand = document.querySelector(".industries");
-const industryNames = [...industryBand.querySelectorAll(".industry-list span")].map((item) => item.textContent);
-if (industryNames.length > 1) {
+// Both steel bands share one engraving cycle. Their original content remains in
+// the page for assistive technology and for visitors who prefer reduced motion.
+function addEngravedCycle(band, container, items) {
+  if (items.length < 2) return;
+
+  function showItem(element, item) {
+    element.replaceChildren();
+    if (!item.detail) {
+      element.textContent = item.title;
+      return;
+    }
+
+    const title = document.createElement("strong");
+    const detail = document.createElement("span");
+    title.textContent = item.title;
+    detail.textContent = item.detail;
+    element.append(title, detail);
+  }
+
   const stage = document.createElement("div");
   const measure = document.createElement("span");
   const current = document.createElement("span");
   const next = document.createElement("span");
-  stage.className = "industry-stage";
+  stage.className = "engraved-stage";
   stage.setAttribute("aria-hidden", "true");
-  measure.className = "industry-measure";
-  measure.textContent = industryNames.reduce((longest, name) => name.length > longest.length ? name : longest);
-  current.className = "industry-word industry-current";
-  next.className = "industry-word industry-next";
-  current.textContent = industryNames[0];
-  next.textContent = industryNames[1];
+  measure.className = "engraved-measure";
+  showItem(measure, {
+    title: items.reduce((longest, item) => item.title.length > longest.length ? item.title : longest, ""),
+    detail: items.reduce((longest, item) => (item.detail || "").length > longest.length ? item.detail : longest, "")
+  });
+  current.className = "engraved-word engraved-current";
+  next.className = "engraved-word engraved-next";
+  showItem(current, items[0]);
+  showItem(next, items[1]);
   stage.append(measure, current, next);
-  industryBand.querySelector(".industries-inner").append(stage);
-  industryBand.classList.add("is-animated");
+  container.append(stage);
+  band.classList.add("is-animated");
 
   let currentIndex = 0;
   next.addEventListener("animationiteration", () => {
-    currentIndex = (currentIndex + 1) % industryNames.length;
-    current.textContent = industryNames[currentIndex];
-    next.textContent = industryNames[(currentIndex + 1) % industryNames.length];
+    currentIndex = (currentIndex + 1) % items.length;
+    showItem(current, items[currentIndex]);
+    showItem(next, items[(currentIndex + 1) % items.length]);
   });
 }
+
+const industryBand = document.querySelector(".industries");
+const industries = [...industryBand.querySelectorAll(".industry-list span")].map((item) => ({ title: item.textContent }));
+addEngravedCycle(industryBand, industryBand.querySelector(".industries-inner"), industries);
+
+const statsBand = document.querySelector(".stats");
+const stats = [...statsBand.querySelectorAll(".stat")];
+const statItems = stats.map((item) => ({
+  title: item.querySelector("strong").textContent,
+  detail: item.querySelector("small").textContent
+}));
+const statsGrid = statsBand.querySelector(".stats-grid");
+const statsLabel = document.createElement("div");
+statsLabel.className = "eyebrow stats-cycle-label";
+statsLabel.textContent = "Company highlights";
+statsLabel.setAttribute("aria-hidden", "true");
+statsGrid.append(statsLabel);
+addEngravedCycle(statsBand, statsGrid, statItems);
 
 if ("IntersectionObserver" in window && !reduceMotion) {
   const revealTargets = document.querySelectorAll(
