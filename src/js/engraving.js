@@ -4,15 +4,27 @@ export function initEngraving() {
   function addEngravedCycle(band, container, items) {
     if (items.length < 2) return;
 
+    function longestText(field) {
+      return items.reduce((longest, item) => {
+        const text = item[field] ?? "";
+        return text.length > longest.length ? text : longest;
+      }, "");
+    }
+
     function showItem(element, item, index) {
       const sequence = document.createElement("span");
       const headline = document.createElement("span");
       const title = document.createElement("strong");
       const detail = document.createElement("span");
+
+      const number = String(index + 1).padStart(2, "0");
+      const total = String(items.length).padStart(2, "0");
+      const position = `${number} / ${total}`;
       sequence.className = "engraved-sequence";
-      sequence.textContent = `${String(index + 1).padStart(2, "0")} / ${String(items.length).padStart(2, "0")}${item.label ? ` · ${item.label}` : ""}`;
+      sequence.textContent = item.label ? `${position} · ${item.label}` : position;
       headline.className = "engraved-headline";
       title.textContent = item.title;
+
       if (item.icon) {
         const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
@@ -22,6 +34,7 @@ export function initEngraving() {
         icon.append(use);
         headline.append(icon);
       }
+
       headline.append(title);
       detail.className = "engraved-detail";
       detail.textContent = item.detail;
@@ -32,16 +45,19 @@ export function initEngraving() {
     const measure = document.createElement("span");
     const current = document.createElement("span");
     const next = document.createElement("span");
+
     stage.className = "engraved-stage";
     stage.setAttribute("aria-hidden", "true");
     measure.className = "engraved-measure";
+
     // Reserve room for the longest copy so the steel band does not jump in width.
     showItem(measure, {
-      title: items.reduce((longest, item) => item.title.length > longest.length ? item.title : longest, ""),
-      detail: items.reduce((longest, item) => item.detail.length > longest.length ? item.detail : longest, ""),
-      label: items.reduce((longest, item) => (item.label || "").length > longest.length ? item.label : longest, ""),
+      title: longestText("title"),
+      detail: longestText("detail"),
+      label: longestText("label"),
       icon: items[0].icon
     }, 0);
+
     current.className = "engraved-word engraved-current";
     next.className = "engraved-word engraved-next";
     showItem(current, items[0], 0);
@@ -54,8 +70,10 @@ export function initEngraving() {
     // Update the off-screen words at the cycle boundary for a single pass.
     next.addEventListener("animationiteration", () => {
       currentIndex = (currentIndex + 1) % items.length;
+      const nextIndex = (currentIndex + 1) % items.length;
+
       showItem(current, items[currentIndex], currentIndex);
-      showItem(next, items[(currentIndex + 1) % items.length], (currentIndex + 1) % items.length);
+      showItem(next, items[nextIndex], nextIndex);
     });
   }
 

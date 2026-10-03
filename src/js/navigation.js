@@ -13,15 +13,21 @@ export function initNavigation() {
   });
 
   navigation.addEventListener("click", (event) => {
-    if (event.target.closest("a")) setMenuOpen(false);
+    if (event.target.closest("a")) {
+      setMenuOpen(false);
+    }
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") setMenuOpen(false);
+    if (event.key === "Escape") {
+      setMenuOpen(false);
+    }
   });
 
   document.addEventListener("click", (event) => {
-    if (!header.contains(event.target)) setMenuOpen(false);
+    if (!header.contains(event.target)) {
+      setMenuOpen(false);
+    }
   });
 
   function updateHeader() {

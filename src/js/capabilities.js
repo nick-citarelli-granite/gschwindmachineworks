@@ -20,11 +20,23 @@ export function initCapabilities() {
     tab.addEventListener("click", () => selectTab(tab));
     tab.addEventListener("keydown", (event) => {
       let nextIndex;
-      if (event.key === "ArrowRight") nextIndex = (index + 1) % tabs.length;
-      if (event.key === "ArrowLeft") nextIndex = (index - 1 + tabs.length) % tabs.length;
-      if (event.key === "Home") nextIndex = 0;
-      if (event.key === "End") nextIndex = tabs.length - 1;
-      if (nextIndex === undefined) return;
+
+      switch (event.key) {
+        case "ArrowRight":
+          nextIndex = (index + 1) % tabs.length;
+          break;
+        case "ArrowLeft":
+          nextIndex = (index - 1 + tabs.length) % tabs.length;
+          break;
+        case "Home":
+          nextIndex = 0;
+          break;
+        case "End":
+          nextIndex = tabs.length - 1;
+          break;
+        default:
+          return;
+      }
 
       event.preventDefault();
       selectTab(tabs[nextIndex]);
@@ -40,9 +52,11 @@ export function initCapabilities() {
       const bounds = visual.getBoundingClientRect();
       const x = event.clientX - bounds.left;
       const y = event.clientY - bounds.top;
+      const angle = Math.atan2(y - bounds.height / 2, x - bounds.width / 2);
+
       visual.style.setProperty("--pointer-x", `${(x / bounds.width) * 100}%`);
       visual.style.setProperty("--pointer-y", `${(y / bounds.height) * 100}%`);
-      visual.style.setProperty("--pointer-angle", `${Math.atan2(y - bounds.height / 2, x - bounds.width / 2)}rad`);
+      visual.style.setProperty("--pointer-angle", `${angle}rad`);
       visual.classList.add("is-interacting");
     });
 
