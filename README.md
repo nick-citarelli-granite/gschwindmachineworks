@@ -3,7 +3,10 @@
 A static, one-page website concept. The site source is in `src/`:
 
 - `index.html` — content and structure
-- `styles.css` — layout, maroon/steel visual design, and CSS animations
+- `styles.css` — shared styles, header, hero, team placeholder, and buttons
+- `sections.css` — page sections and the shared steel/engraving components
+- `motion.css` — animations and reduced-motion fallbacks
+- `responsive.css` — tablet and mobile layouts
 - `main.js` — mobile navigation, accessible capability tabs, pointer-guided process diagrams, scroll reveals, and copyright year
 - `assets/` — illustrative machined-part image, steel texture, SVG brand mark, and icon sprite
 
