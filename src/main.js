@@ -81,6 +81,33 @@ document.querySelectorAll(".process-visual").forEach((visual) => {
 });
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// The steel sweep swaps between the published industries as it crosses the band.
+// The original list stays in the page for assistive technology and reduced motion.
+const industryBand = document.querySelector(".industries");
+const industryNames = [...industryBand.querySelectorAll(".industry-list span")].map((item) => item.textContent);
+if (industryNames.length > 1) {
+  const stage = document.createElement("div");
+  const current = document.createElement("span");
+  const next = document.createElement("span");
+  stage.className = "industry-stage";
+  stage.setAttribute("aria-hidden", "true");
+  current.className = "industry-word industry-current";
+  next.className = "industry-word industry-next";
+  current.textContent = industryNames[0];
+  next.textContent = industryNames[1];
+  stage.append(current, next);
+  industryBand.querySelector(".industries-inner").append(stage);
+  industryBand.classList.add("is-animated");
+
+  let currentIndex = 0;
+  next.addEventListener("animationiteration", () => {
+    currentIndex = (currentIndex + 1) % industryNames.length;
+    current.textContent = industryNames[currentIndex];
+    next.textContent = industryNames[(currentIndex + 1) % industryNames.length];
+  });
+}
+
 if ("IntersectionObserver" in window && !reduceMotion) {
   const revealTargets = document.querySelectorAll(
     ".team-copy, .team-photo, .section-head, .capability-tabs, .about-copy, .industry-list, .contact-copy"

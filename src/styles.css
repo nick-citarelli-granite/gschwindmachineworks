@@ -431,6 +431,38 @@ nav a:hover { text-decoration: underline; text-underline-offset: 5px; }
 .industries .eyebrow { color: var(--maroon); white-space: nowrap; }
 .industry-list { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 14px 25px; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .industry-list span { padding-left: 13px; border-left: 2px solid var(--maroon); color: #334348; text-shadow: -1px -1px 0 #66777b77, 1px 1px 0 #f8fbfb; }
+.industries.is-animated::after { animation: industry-pass 6s linear infinite; }
+.industries.is-animated .industry-list { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.industry-stage { position: relative; flex: 1; min-width: 0; height: 42px; }
+.industry-stage::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: -3px;
+  bottom: -3px;
+  width: 2px;
+  background: #f7ffff;
+  box-shadow: -2px 0 #425459, 0 0 12px #fff;
+  animation: industry-cutter 6s linear infinite;
+  pointer-events: none;
+}
+.industry-word {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: #683847;
+  font-size: clamp(24px, 3.3vw, 40px);
+  font-weight: 900;
+  letter-spacing: -.05em;
+  line-height: 1;
+  text-shadow: var(--engraved-edge);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.industries.is-animated .industry-current { animation: industry-erase 6s linear infinite; }
+.industries.is-animated .industry-next { animation: industry-form 6s linear infinite; }
 
 .contact { color: var(--ink); background: #e2e9e9; }
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 10%; }
@@ -452,6 +484,7 @@ nav a:hover { text-decoration: underline; text-underline-offset: 5px; }
 
 footer { padding: 25px 0; color: #cbd6d6; background: #1a2224; font-size: 11px; }
 .footer-inner { display: flex; justify-content: space-between; gap: 15px; }
+.site-credit strong { color: #f2f7f7; }
 
 /* The two raised panels drift gently and respond to hover or keyboard focus. */
 .floating-card {
@@ -479,6 +512,24 @@ footer { padding: 25px 0; color: #cbd6d6; background: #1a2224; font-size: 11px; 
 @keyframes steel-sweep {
   0%, 70% { transform: translateX(-150%); }
   100% { transform: translateX(850%); }
+}
+@keyframes industry-pass {
+  from { transform: translateX(-150%); }
+  to { transform: translateX(850%); }
+}
+@keyframes industry-erase {
+  0%, 35% { clip-path: inset(0); }
+  80%, 100% { clip-path: inset(0 0 0 100%); }
+}
+@keyframes industry-form {
+  0%, 35% { clip-path: inset(0 100% 0 0); }
+  80%, 100% { clip-path: inset(0); }
+}
+@keyframes industry-cutter {
+  0%, 35% { left: 0; opacity: 0; }
+  36% { opacity: 1; }
+  80% { left: 100%; opacity: 1; }
+  81%, 100% { left: 100%; opacity: 0; }
 }
 
 @keyframes card-float {
@@ -508,6 +559,8 @@ footer { padding: 25px 0; color: #cbd6d6; background: #1a2224; font-size: 11px; 
   .js-motion [data-reveal] { opacity: 1; transform: none; }
   .floating-card { translate: 0 0; }
   .floating-card:hover, .floating-card:focus-visible, .floating-card:focus-within { scale: 1; rotate: 0deg; }
+  .industries.is-animated .industry-list { position: static; width: auto; height: auto; overflow: visible; clip-path: none; white-space: normal; }
+  .industry-stage { display: none; }
 }
 
 @media (max-width: 950px) {
@@ -594,5 +647,5 @@ footer { padding: 25px 0; color: #cbd6d6; background: #1a2224; font-size: 11px; 
   .contact-panel { padding: 25px 23px 5px; box-shadow: 5px 5px 0 #a8b8ba; }
   .detail { grid-template-columns: 1fr; gap: 8px; }
   .footer-inner { display: block; }
-  .footer-inner span { display: block; margin-bottom: 8px; }
+  .footer-inner > span { display: block; margin-bottom: 8px; }
 }
