@@ -35,6 +35,7 @@ export function initEngraving() {
     stage.className = "engraved-stage";
     stage.setAttribute("aria-hidden", "true");
     measure.className = "engraved-measure";
+    // Reserve room for the longest copy so the steel band does not jump in width.
     showItem(measure, {
       title: items.reduce((longest, item) => item.title.length > longest.length ? item.title : longest, ""),
       detail: items.reduce((longest, item) => item.detail.length > longest.length ? item.detail : longest, ""),
@@ -50,6 +51,7 @@ export function initEngraving() {
     band.classList.add("is-animated");
 
     let currentIndex = 0;
+    // Update the off-screen words at the cycle boundary for a single pass.
     next.addEventListener("animationiteration", () => {
       currentIndex = (currentIndex + 1) % items.length;
       showItem(current, items[currentIndex], currentIndex);

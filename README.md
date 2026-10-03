@@ -1,21 +1,19 @@
 # Karl Gschwind Machine Works demo
 
-A static, one-page website concept. The site source is in `src/`:
+A static, one-page website concept. Files are grouped by purpose:
 
-- `index.template.html` and `partials/` — editable page structure and sections
-- `index.html` — assembled page served by the static host
-- `styles.css` — shared styles, header, hero, team placeholder, and buttons
-- `sections.css` — page sections and the shared steel/engraving components
-- `motion.css` — animations and reduced-motion fallbacks
-- `responsive.css` — tablet and mobile layouts
-- `main.js` — entry point and copyright year
-- `navigation.js`, `capabilities.js`, `engraving.js`, `reveal.js` — focused page interactions
-- `assets/` — illustrative machined-part image, steel texture, SVG brand mark, and icon sprite
+- `src/html/` — editable page template and section partials
+- `src/css/` — shared, section, motion, and responsive styles
+- `src/js/` — small entry point and focused interaction modules
+- `src/assets/` — illustrative machined-part image, steel texture, SVG brand mark, and icon sprite
+- `src/index.html` — assembled page served by the static host
+- `scripts/build.py` — assembles the HTML with no external dependencies
+- `docs/` — research and third-party attribution
 
 Run the dependency-free HTML assembly script after editing the template or a partial:
 
 ```sh
-python build.py
+python scripts/build.py
 ```
 
 To preview locally:
@@ -26,7 +24,7 @@ python -m http.server 4173 --directory src
 
 Then open [http://localhost:4173](http://localhost:4173). Point a static host's publish directory at `src/`. The assembled `index.html` is committed, so hosting needs no build command.
 
-The machined-part illustration is the hero background. On larger screens it scales to the hero height and stays anchored to the right; on narrow screens the full image appears below the copy. Both layouts preserve its proportions. Company highlights follow the hero, then a team-photo placeholder. When a real photograph is available, replace the contents of `.team-photo` in `src/partials/highlights-team.html` with an `<img>`, update the image's alternative text, and run `python build.py`.
+The machined-part illustration is the hero background. On larger screens it scales to the hero height and stays anchored to the right; on narrow screens the full image appears below the copy. Both layouts preserve its proportions. Company highlights follow the hero, then a team-photo placeholder. When a real photograph is available, replace the contents of `.team-photo` in `src/html/partials/highlights-team.html` with an `<img>`, update the image's alternative text, and run `python scripts/build.py`.
 
 Background research and content sources are documented in [docs/research.md](docs/research.md).
 

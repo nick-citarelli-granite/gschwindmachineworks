@@ -3,6 +3,7 @@ export function initCapabilities() {
   const tabs = [...document.querySelectorAll(".capability-tab")];
 
   function selectTab(selectedTab) {
+    // Clear pointer-driven diagrams before hiding their panel.
     document.querySelectorAll(".process-visual").forEach((visual) => {
       visual.classList.remove("is-interacting");
     });

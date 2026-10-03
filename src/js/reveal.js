@@ -2,6 +2,7 @@ export function initReveals() {
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   if ("IntersectionObserver" in window && !reduceMotion) {
+    // Only opt into hidden reveal states when the observer can show them again.
     const revealTargets = document.querySelectorAll(
       ".team-copy, .team-photo, .section-head, .capability-tabs, .about-copy, .industry-list, .contact-copy"
     );
