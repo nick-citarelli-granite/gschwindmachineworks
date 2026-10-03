@@ -290,7 +290,6 @@ nav a:hover { text-decoration: underline; text-underline-offset: 5px; }
 .stats.is-animated .stats-grid { display: flex; align-items: center; gap: 28px; min-height: 116px; }
 .stats.is-animated .stat { position: absolute; width: 1px; height: 1px; min-height: 0; padding: 0; overflow: hidden; clip-path: inset(50%); }
 .stats.is-animated .stats-cycle-label { display: block; flex: none; color: var(--maroon); white-space: nowrap; }
-.stats.is-animated .engraved-stage { flex: 1; width: auto; max-width: 650px; }
 .stats.is-animated .engraved-headline { font-size: clamp(30px, 3.3vw, 42px); }
 
 /* Capability selector */
@@ -438,7 +437,7 @@ nav a:hover { text-decoration: underline; text-underline-offset: 5px; }
 .engraved-band.is-animated::after { display: none; }
 .industries.is-animated .industries-inner { justify-content: flex-start; }
 .industries.is-animated .industry-list { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-.engraved-stage { --cycle-duration: 6s; position: relative; flex: 0 1 auto; width: max-content; max-width: 100%; min-width: 0; }
+.engraved-stage { --cycle-duration: 6s; position: relative; flex: 0 1 400px; width: min(100%, 400px); min-width: 0; }
 .engraved-stage::before {
   content: "";
   position: absolute;
