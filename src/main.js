@@ -87,18 +87,28 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 function addEngravedCycle(band, container, items) {
   if (items.length < 2) return;
 
-  function showItem(element, item) {
-    element.replaceChildren();
-    if (!item.detail) {
-      element.textContent = item.title;
-      return;
-    }
-
+  function showItem(element, item, index) {
+    const sequence = document.createElement("span");
+    const headline = document.createElement("span");
     const title = document.createElement("strong");
     const detail = document.createElement("span");
+    sequence.className = "engraved-sequence";
+    sequence.textContent = `${String(index + 1).padStart(2, "0")} / ${String(items.length).padStart(2, "0")}${item.label ? ` · ${item.label}` : ""}`;
+    headline.className = "engraved-headline";
     title.textContent = item.title;
+    if (item.icon) {
+      const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+      icon.setAttribute("class", "icon");
+      icon.setAttribute("aria-hidden", "true");
+      use.setAttribute("href", `assets/icons.svg#${item.icon}`);
+      icon.append(use);
+      headline.append(icon);
+    }
+    headline.append(title);
+    detail.className = "engraved-detail";
     detail.textContent = item.detail;
-    element.append(title, detail);
+    element.replaceChildren(sequence, headline, detail);
   }
 
   const stage = document.createElement("div");
@@ -110,12 +120,14 @@ function addEngravedCycle(band, container, items) {
   measure.className = "engraved-measure";
   showItem(measure, {
     title: items.reduce((longest, item) => item.title.length > longest.length ? item.title : longest, ""),
-    detail: items.reduce((longest, item) => (item.detail || "").length > longest.length ? item.detail : longest, "")
-  });
+    detail: items.reduce((longest, item) => item.detail.length > longest.length ? item.detail : longest, ""),
+    label: items.reduce((longest, item) => (item.label || "").length > longest.length ? item.label : longest, ""),
+    icon: items[0].icon
+  }, 0);
   current.className = "engraved-word engraved-current";
   next.className = "engraved-word engraved-next";
-  showItem(current, items[0]);
-  showItem(next, items[1]);
+  showItem(current, items[0], 0);
+  showItem(next, items[1], 1);
   stage.append(measure, current, next);
   container.append(stage);
   band.classList.add("is-animated");
@@ -123,20 +135,26 @@ function addEngravedCycle(band, container, items) {
   let currentIndex = 0;
   next.addEventListener("animationiteration", () => {
     currentIndex = (currentIndex + 1) % items.length;
-    showItem(current, items[currentIndex]);
-    showItem(next, items[(currentIndex + 1) % items.length]);
+    showItem(current, items[currentIndex], currentIndex);
+    showItem(next, items[(currentIndex + 1) % items.length], (currentIndex + 1) % items.length);
   });
 }
 
 const industryBand = document.querySelector(".industries");
-const industries = [...industryBand.querySelectorAll(".industry-list span")].map((item) => ({ title: item.textContent }));
+const industries = [...industryBand.querySelectorAll(".industry-item")].map((item) => ({
+  title: item.querySelector("strong").textContent,
+  detail: item.querySelector("small").textContent,
+  icon: item.dataset.icon
+}));
 addEngravedCycle(industryBand, industryBand.querySelector(".industries-inner"), industries);
 
 const statsBand = document.querySelector(".stats");
 const stats = [...statsBand.querySelectorAll(".stat")];
 const statItems = stats.map((item) => ({
   title: item.querySelector("strong").textContent,
-  detail: item.querySelector("small").textContent
+  label: item.querySelector("span").textContent,
+  detail: item.querySelector("small").textContent,
+  icon: item.dataset.icon
 }));
 const statsGrid = statsBand.querySelector(".stats-grid");
 const statsLabel = document.createElement("div");

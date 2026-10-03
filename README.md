@@ -5,7 +5,7 @@ A static, one-page website concept. The site source is in `src/`:
 - `index.html` — content and structure
 - `styles.css` — layout, maroon/steel visual design, and CSS animations
 - `main.js` — mobile navigation, accessible capability tabs, pointer-guided process diagrams, scroll reveals, and copyright year
-- `assets/` — illustrative machined-part image, steel texture, and SVG brand mark
+- `assets/` — illustrative machined-part image, steel texture, SVG brand mark, and icon sprite
 
 No build step or external dependencies are required. To preview locally:
 
@@ -22,4 +22,6 @@ Background research and content sources are documented in [docs/research.md](doc
 The capability tabs can be selected by click or with the arrow, Home, and End keys. Their diagrams are schematic illustrations; the published capacity figures remain in text. Motion respects the visitor's reduced-motion setting.
 
 The company highlights and industries bands share the same engraving cycle. Each highlight pairs a published fact with a short explanation; the full lists remain available to screen readers and replace the animation when reduced motion is requested.
+
+Decorative icons in `src/assets/icons.svg` are from [Lucide](https://lucide.dev), retrieved through the [Iconify SVG API](https://iconify.design/docs/api/svg.html) and stored locally so the site does not make runtime icon requests. License notices are in [docs/third-party-icons.md](docs/third-party-icons.md).
 
