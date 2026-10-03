@@ -21,5 +21,5 @@ Background research and content sources are documented in [docs/research.md](doc
 
 The capability tabs can be selected by click or with the arrow, Home, and End keys. Their diagrams are schematic illustrations; the published capacity figures remain in text. Motion respects the visitor's reduced-motion setting.
 
-The industries band cycles through the published sectors in step with its light pass. Its full list remains available to screen readers and replaces the animation when reduced motion is requested.
+The industries band cycles through the published sectors in step with a local engraving pass. Its full list remains available to screen readers and replaces the animation when reduced motion is requested.
 

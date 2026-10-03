@@ -88,15 +88,18 @@ const industryBand = document.querySelector(".industries");
 const industryNames = [...industryBand.querySelectorAll(".industry-list span")].map((item) => item.textContent);
 if (industryNames.length > 1) {
   const stage = document.createElement("div");
+  const measure = document.createElement("span");
   const current = document.createElement("span");
   const next = document.createElement("span");
   stage.className = "industry-stage";
   stage.setAttribute("aria-hidden", "true");
+  measure.className = "industry-measure";
+  measure.textContent = industryNames.reduce((longest, name) => name.length > longest.length ? name : longest);
   current.className = "industry-word industry-current";
   next.className = "industry-word industry-next";
   current.textContent = industryNames[0];
   next.textContent = industryNames[1];
-  stage.append(current, next);
+  stage.append(measure, current, next);
   industryBand.querySelector(".industries-inner").append(stage);
   industryBand.classList.add("is-animated");
 

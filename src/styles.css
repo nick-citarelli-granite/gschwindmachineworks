@@ -431,35 +431,52 @@ nav a:hover { text-decoration: underline; text-underline-offset: 5px; }
 .industries .eyebrow { color: var(--maroon); white-space: nowrap; }
 .industry-list { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 14px 25px; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .industry-list span { padding-left: 13px; border-left: 2px solid var(--maroon); color: #334348; text-shadow: -1px -1px 0 #66777b77, 1px 1px 0 #f8fbfb; }
-.industries.is-animated::after { animation: industry-pass 6s linear infinite; }
+.industries.is-animated::after { display: none; }
+.industries.is-animated .industries-inner { justify-content: flex-start; }
 .industries.is-animated .industry-list { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-.industry-stage { position: relative; flex: 1; min-width: 0; height: 42px; }
+.industry-stage { position: relative; flex: 0 1 auto; width: max-content; max-width: 100%; min-width: 0; }
+.industry-stage::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  bottom: -5px;
+  left: -22px;
+  width: 44px;
+  background: linear-gradient(90deg, transparent, #fff9, transparent);
+  filter: blur(3px);
+  animation: industry-glint 6s linear infinite;
+  pointer-events: none;
+}
 .industry-stage::after {
   content: "";
   position: absolute;
   z-index: 2;
-  top: -3px;
-  bottom: -3px;
+  top: -5px;
+  bottom: -5px;
   width: 2px;
   background: #f7ffff;
   box-shadow: -2px 0 #425459, 0 0 12px #fff;
   animation: industry-cutter 6s linear infinite;
   pointer-events: none;
 }
+.industry-word, .industry-measure {
+  font-size: clamp(24px, 3.3vw, 40px);
+  font-weight: 900;
+  letter-spacing: -.05em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.industry-measure { display: block; visibility: hidden; }
 .industry-word {
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
   color: #683847;
-  font-size: clamp(24px, 3.3vw, 40px);
-  font-weight: 900;
-  letter-spacing: -.05em;
-  line-height: 1;
   text-shadow: var(--engraved-edge);
-  text-transform: uppercase;
-  white-space: nowrap;
 }
 .industries.is-animated .industry-current { animation: industry-erase 6s linear infinite; }
 .industries.is-animated .industry-next { animation: industry-form 6s linear infinite; }
@@ -513,23 +530,26 @@ footer { padding: 25px 0; color: #cbd6d6; background: #1a2224; font-size: 11px; 
   0%, 70% { transform: translateX(-150%); }
   100% { transform: translateX(850%); }
 }
-@keyframes industry-pass {
-  from { transform: translateX(-150%); }
-  to { transform: translateX(850%); }
+@keyframes industry-glint {
+  0%, 25% { left: -22px; opacity: 0; }
+  26% { opacity: 1; }
+  70% { left: calc(100% - 22px); opacity: 1; }
+  71%, 100% { left: calc(100% - 22px); opacity: 0; }
 }
 @keyframes industry-erase {
-  0%, 35% { clip-path: inset(0); }
-  80%, 100% { clip-path: inset(0 0 0 100%); }
+  0%, 25% { clip-path: inset(0); opacity: 1; }
+  40% { opacity: 1; }
+  70%, 100% { clip-path: inset(0 0 0 100%); opacity: 0; }
 }
 @keyframes industry-form {
-  0%, 35% { clip-path: inset(0 100% 0 0); }
-  80%, 100% { clip-path: inset(0); }
+  0%, 25% { clip-path: inset(0 100% 0 0); }
+  70%, 100% { clip-path: inset(0); }
 }
 @keyframes industry-cutter {
-  0%, 35% { left: 0; opacity: 0; }
-  36% { opacity: 1; }
-  80% { left: 100%; opacity: 1; }
-  81%, 100% { left: 100%; opacity: 0; }
+  0%, 25% { left: 0; opacity: 0; }
+  26% { opacity: 1; }
+  70% { left: 100%; opacity: 1; }
+  71%, 100% { left: 100%; opacity: 0; }
 }
 
 @keyframes card-float {
